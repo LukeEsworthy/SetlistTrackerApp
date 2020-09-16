@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Setlist Tracker</title>
+  </head>
+  <body>
+    <h1>Add Event</h1>
+
+    <form action="{% url 'setlisttrackerapp:events' %}" method="post">
+      {% csrf_token %}
+      <fieldset>
+        <label for="title">Title: </label>
+        <input id="title" type="text" name="title" />
+      </fieldset>
+      <fieldset>
+        <label for="date">Date: </label>
+        <input id="date" type="date" name="date" />
+      </fieldset>
+      <fieldset>
+        <label for="start_time">Start Time: </label>
+        <input id="start_time" type="number" name="start_time" />
+      </fieldset>
+      <fieldset>
+        <label for="end_time">End Time: </label>
+        <input id="end_time" type="number" name="end_time" />
+      </fieldset>
+      <fieldset>
+        <label for="location">Location: </label>
+        <input id="location" type="text" name="location" />
+      </fieldset>
+      <fieldset>
+        <label for="duration">Duration: </label>
+        <input id="duration" type="number" name="duration" />
+      </fieldset>
+      <fieldset>
+        <label for="notes">notes: </label>
+        <input id="notes" type="text" name="notes" />
+      </fieldset>
+
+      <input type="submit" value="Add It" />
+    </form>
+  </body>
+</html>
