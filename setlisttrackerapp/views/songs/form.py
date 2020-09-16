@@ -5,29 +5,30 @@ from setlisttrackerapp.models import Song
 from ..connection import Connection
 
 
-def get_libraries():
+def get_songs():
     with sqlite3.connect(Connection.db_path) as conn:
-        conn.row_factory = sqlite3.Row()
+        conn.row_factory = sqlite3.Row
         db_cursor = conn.cursor()
 
         db_cursor.execute("""
         select
-            l.id,
-            l.title,
-            l.address
-        from libraryapp_library l
+            s.id,
+            s.title,
+            s.artist,
+            s.song_length
+        from setlisttrackerapp_song s
         """)
 
         return db_cursor.fetchall()
 
 
 @login_required
-def book_form(request):
+def song_form(request):
     if request.method == 'GET':
-        libraries = get_libraries()
-        template = 'books/form.html'
+        songs = get_songs()
+        template = 'songs/form.html'
         context = {
-            'all_libraries': libraries
+            'all_songs': songs
         }
 
         return render(request, template, context)
