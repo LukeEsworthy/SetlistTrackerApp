@@ -11,8 +11,9 @@
     <ol>
       {% for event in all_events %}
       <li>
-        {{ event.name }} at {{event.start_time}} located at {{event.location}}.
-        Setlist duration {{event.duration}}.
+        {{ event.name }} from {{event.start_time}} to {{event.end_time}},
+        located at {{event.location}}. Setlist duration {{event.duration}}
+        hour(s).
       </li>
       {% endfor %}
     </ol>

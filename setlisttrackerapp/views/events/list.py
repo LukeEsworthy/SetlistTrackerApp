@@ -13,7 +13,7 @@ def event_list(request):
             db_cursor.execute("""
             select
                 e.id,
-                e.user_id,
+                e.user_id_id,
                 e.name,
                 e.date,
                 e.start_time,
@@ -30,7 +30,7 @@ def event_list(request):
             for row in dataset:
                 event = Event()
                 event.id = row['id']
-                event.user_id = row['user_id']
+                event.user_id_id = row['user_id_id']
                 event.name = row['name']
                 event.date = row['date']
                 event.start_time = row['start_time']
