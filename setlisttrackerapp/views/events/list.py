@@ -1,9 +1,11 @@
 import sqlite3
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from setlisttrackerapp.models import Event
 from ..connection import Connection
 
 
+@login_required
 def event_list(request):
     if request.method == 'GET':
         with sqlite3.connect(Connection.db_path) as conn:
