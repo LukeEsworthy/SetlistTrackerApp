@@ -1,5 +1,6 @@
 import sqlite3
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from setlisttrackerapp.models import Event
 from ..connection import Connection
@@ -15,7 +16,7 @@ def event_list(request):
             db_cursor.execute("""
             select
                 e.id,
-                e.user_id_id,
+                e.user_id,
                 e.name,
                 e.date,
                 e.start_time,
@@ -32,7 +33,7 @@ def event_list(request):
             for row in dataset:
                 event = Event()
                 event.id = row['id']
-                event.user_id_id = row['user_id_id']
+                event.user_id = row['user_id']
                 event.name = row['name']
                 event.date = row['date']
                 event.start_time = row['start_time']
@@ -49,3 +50,23 @@ def event_list(request):
         }
 
         return render(request, template, context)
+
+    elif request.method == 'POST':
+        form_data = request.POST
+        print("FORM DATA", form_data)
+
+        with sqlite3.connect(Connection.db_path) as conn:
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            INSERT INTO setlisttrackerapp_event
+            (
+                user_id, name, date,
+                start_time, end_time, location, duration, notes
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+                              (request.user.id, form_data['name'],
+                               form_data['date'], form_data['start_time'], form_data['end_time'], form_data['location'], form_data['duration'], form_data['notes']))
+
+        return redirect(reverse('setlisttrackerapp:events'))

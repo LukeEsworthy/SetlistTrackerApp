@@ -55,12 +55,12 @@ VALUES
 -- EVENTS
 
 -- INSERT INTO setlisttrackerapp_event
---     (name, date, start_time, end_time, location, duration, notes, user_id_id)
+--     (name, date, start_time, end_time, location, duration, notes, user_id)
 -- VALUES
 --     ("Connor's FOMO Pool Party", "2020-09-12", "19:00", "02:00", "1234 Winners Way", 5, "", 1);
 
 -- INSERT INTO setlisttrackerapp_event
---     (name, date, start_time, end_time, location, duration, notes, user_id_id)
+--     (name, date, start_time, end_time, location, duration, notes, user_id)
 -- VALUES
 --     ("Tomorrowland: 2021", "2021-07-16", "01:00", "23:59", "Boom, Belgium", 20, "", 1);
 
@@ -69,11 +69,11 @@ VALUES
 -- EVENTSONGS
 
 INSERT INTO setlisttrackerapp_eventsong
-    (rating, event_id_id, song_id_id)
+    (rating, event_id, song_id)
 VALUES
     (4, 1, 1);
 
 INSERT INTO setlisttrackerapp_eventsong
-    (rating, event_id_id, song_id_id)
+    (rating, event_id, song_id)
 VALUES
     (5, 1, 2);

@@ -11,8 +11,8 @@
     <form action="{% url 'setlisttrackerapp:events' %}" method="post">
       {% csrf_token %}
       <fieldset>
-        <label for="title">Title: </label>
-        <input id="title" type="text" name="title" />
+        <label for="name">name: </label>
+        <input id="name" type="text" name="name" />
       </fieldset>
       <fieldset>
         <label for="date">Date: </label>
@@ -20,11 +20,11 @@
       </fieldset>
       <fieldset>
         <label for="start_time">Start Time: </label>
-        <input id="start_time" type="number" name="start_time" />
+        <input id="start_time" type="time" name="start_time" />
       </fieldset>
       <fieldset>
         <label for="end_time">End Time: </label>
-        <input id="end_time" type="number" name="end_time" />
+        <input id="end_time" type="time" name="end_time" />
       </fieldset>
       <fieldset>
         <label for="location">Location: </label>
