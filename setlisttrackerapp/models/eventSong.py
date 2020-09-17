@@ -4,8 +4,8 @@ from .song import Song
 
 
 class eventSong(models.Model):
-    event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
-    song_id = models.ForeignKey(Song, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
     rating = models.IntegerField()
 
     class Meta:
