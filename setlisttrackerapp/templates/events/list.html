@@ -4,7 +4,10 @@
 <ol>
   {% for event in all_events %}
   <li>
-    {{ event.name }} from {{event.start_time}} to {{event.end_time}}, located at
+    <a href="{% url 'setlisttrackerapp:event' event.id %}">
+      {{ event.name }}
+    </a>
+    from {{event.start_time}} to {{event.end_time}}, located at
     {{event.location}}. Setlist duration {{event.duration}} hour(s).
   </li>
   {% endfor %}

@@ -1,0 +1,10 @@
+{% extends 'shared/base.html' %} {% block content %}
+
+<h1>{{ event.name }}</h1>
+<h3>Date: {{ event.date }}</h3>
+<h3>Time: {{ event.start_time }} - {{ event.end_time}}</h3>
+<h3>Location: {{ event.location }}</h3>
+<h3>Duration: {{ event.duration }}</h3>
+
+<div>Notes: {{ event.notes }}</div>
+{% endblock %}
