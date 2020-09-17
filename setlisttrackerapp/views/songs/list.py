@@ -20,6 +20,7 @@ def song_list(request):
                 s.artist,
                 s.song_length
             from setlisttrackerapp_song s
+            order by s.title COLLATE NOCASE ASC
             """)
 
             all_songs = []
