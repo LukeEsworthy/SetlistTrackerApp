@@ -66,7 +66,7 @@ VALUES
 
 
 
--- EVENTSONGS
+-- EVENTSONGS for EVENT 1
 
 INSERT INTO setlisttrackerapp_eventsong
     (rating, event_id, song_id)
@@ -77,3 +77,95 @@ INSERT INTO setlisttrackerapp_eventsong
     (rating, event_id, song_id)
 VALUES
     (5, 1, 2);
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (2, 1, 3);
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (3, 1, 4);
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (4, 1, 5);
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (5, 1, 6);
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (1, 1, 7);
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (5, 1, 8);
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (2, 1, 9);
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (3, 1, 10);
+
+
+-- EVENTSONGS for SONG 2
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (5, 2, 1);
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (4, 2, 2);
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (3, 2, 3);
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (2, 2, 4);
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (1, 2, 5);
+
+
+-- Testing EVENT DETAIL with eventSongs
+
+SELECT
+    e.id,
+    e.user_id,
+    e.name,
+    e.date,
+    e.start_time,
+    e.end_time,
+    e.location,
+    e.duration,
+    e.notes,
+    es.id,
+    es.rating,
+    s.id,
+    s.title,
+    s.artist,
+    s.song_length
+FROM setlisttrackerapp_event e
+    JOIN setlisttrackerapp_eventsong es ON e.id = es.event_id
+    JOIN setlisttrackerapp_song s ON es.song_id = s.id;
+
