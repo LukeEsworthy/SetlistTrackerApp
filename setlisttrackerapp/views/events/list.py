@@ -53,7 +53,6 @@ def event_list(request):
 
     elif request.method == 'POST':
         form_data = request.POST
-        print("FORM DATA", form_data)
 
         with sqlite3.connect(Connection.db_path) as conn:
             db_cursor = conn.cursor()
