@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from setlisttrackerapp.models import Event, Song, EventSong
 from ..connection import Connection
-from functools import reduce
 
 
 def get_event(event_id):
@@ -57,7 +56,6 @@ def event_details(request, event_id):
         event = get_event(event_id)
 
         event.setlist_length = sum(song.song_length for song in event.songs)
-        print("setlist length", event.setlist_length)
 
         template = 'events/detail.html'
         context = {
