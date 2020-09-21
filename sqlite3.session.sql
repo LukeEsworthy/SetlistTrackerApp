@@ -167,5 +167,6 @@ SELECT
     s.song_length
 FROM setlisttrackerapp_event e
     JOIN setlisttrackerapp_eventsong es ON e.id = es.event_id
-    JOIN setlisttrackerapp_song s ON es.song_id = s.id;
+    JOIN setlisttrackerapp_song s ON es.song_id = s.id
+WHERE e.id = 1;
 

@@ -1,19 +1,9 @@
 {% extends 'shared/base.html' %} {% block content %}
-
-<h1>{{ event.name }}</h1>
-<h3>Date: {{ event.date }}</h3>
-<h3>Time: {{ event.start_time }} - {{ event.end_time}}</h3>
-<h3>Location: {{ event.location }}</h3>
-<h3>Duration: {{ event.duration }}</h3>
-
+<p>TEXT {{ event.name }}</p>
+<p>Setlist Length: {{ event.setlist_length }}</p>
 <ol>
-  Setlist: {% for eventSong in all_eventSongs %}
-  <li>
-    {{eventSong.title}} -- {{eventSong.artist}} &nbsp; &nbsp; &nbsp;
-    {{eventSong.song_length}}
-  </li>
+  {% for song in event.songs %}
+  <li>{{ song.title }} || {{ song.rating }} || {{ song.song_length }}</li>
   {% endfor %}
 </ol>
-
-<div>Notes: {{ event.notes }}</div>
 {% endblock %}
