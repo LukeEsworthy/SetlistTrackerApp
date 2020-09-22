@@ -32,4 +32,10 @@
   {% endfor %}
 </ol>
 <p>Total setlist length: {{ event.setlist_length }}s</p>
+
+<form action="{% url 'setlisttrackerapp:event' event.id %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="actual_method" value="DELETE">
+    <button>Delete</button>
+</form>
 {% endblock %}

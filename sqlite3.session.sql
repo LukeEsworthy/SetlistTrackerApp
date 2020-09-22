@@ -119,7 +119,7 @@ VALUES
     (3, 1, 10);
 
 
--- EVENTSONGS for SONG 2
+-- EVENTSONGS for EVENT 2
 
 INSERT INTO setlisttrackerapp_eventsong
     (rating, event_id, song_id)
@@ -145,6 +145,23 @@ INSERT INTO setlisttrackerapp_eventsong
     (rating, event_id, song_id)
 VALUES
     (1, 2, 5);
+
+
+-- EVENTSONGS for EVENT 4
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (1, 4, 5);
+
+
+-- EVENTSONGS for EVENT 5
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (1, 5, 5);
+
 
 
 -- Testing EVENT DETAIL with eventSongs

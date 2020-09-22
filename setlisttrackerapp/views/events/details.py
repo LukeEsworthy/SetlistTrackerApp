@@ -94,6 +94,23 @@ def event_details(request, event_id):
 
             return redirect(reverse('setlisttrackerapp:events'))
 
+        if request.method == 'POST':
+            form_data = request.POST
+
+            if (
+               "actual_method" in form_data
+                and form_data["actual_method"] == "DELETE"
+               ):
+                with sqlite3.connect(Connection.db_path) as conn:
+                    db_cursor = conn.cursor()
+
+                    db_cursor.execute("""
+                    DELETE FROM setlisttrackerapp_event
+                    WHERE id = ?
+                    """, (event_id,))
+
+                return redirect(reverse('setlisttrackerapp:events'))
+
 
 def create_event(cursor, row):
     _row = sqlite3.Row(cursor, row)
