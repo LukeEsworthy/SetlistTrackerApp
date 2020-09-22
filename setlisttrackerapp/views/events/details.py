@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from setlisttrackerapp.models import Event, Song, EventSong
+from setlisttrackerapp.views import song_list_search
 from ..connection import Connection
 
 
@@ -62,7 +63,53 @@ def event_details(request, event_id):
             'event': event
         }
 
+        if request.GET.get("query") is not None:
+            print("query params", request.GET.get("query"))
+
         return render(request, template, context)
+
+    elif request.method == 'POST':
+        form_data = request.POST
+
+        if (
+            "actual_method" in form_data
+                and form_data["actual_method"] == "PUT"):
+            with sqlite3.connect(Connection.db_path) as conn:
+                db_cursor = conn.cursor()
+
+                db_cursor.execute("""
+                UPDATE setlisttrackerapp_event
+                SET name = ?,
+                    date = ?,
+                    start_time = ?,
+                    end_time = ?,
+                    location = ?,
+                    duration = ?
+                WHERE id = ?
+                """,
+                                  (
+                                      form_data['name'], form_data['date'], form_data['start_time'], form_data[
+                                          'end_time'], form_data['location'], form_data['duration'], event_id,
+                                  ))
+
+            return redirect(reverse('setlisttrackerapp:events'))
+
+        if request.method == 'POST':
+            form_data = request.POST
+
+            if (
+               "actual_method" in form_data
+                and form_data["actual_method"] == "DELETE"
+               ):
+                with sqlite3.connect(Connection.db_path) as conn:
+                    db_cursor = conn.cursor()
+
+                    db_cursor.execute("""
+                    DELETE FROM setlisttrackerapp_event
+                    WHERE id = ?
+                    """, (event_id,))
+
+                return redirect(reverse('setlisttrackerapp:events'))
 
 
 def create_event(cursor, row):

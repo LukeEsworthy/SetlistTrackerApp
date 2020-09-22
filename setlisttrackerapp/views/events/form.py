@@ -2,6 +2,7 @@ import sqlite3
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from setlisttrackerapp.models import Event
+from .details import get_event
 from ..connection import Connection
 
 
@@ -34,6 +35,20 @@ def event_form(request):
         template = 'events/form.html'
         context = {
             'all_events': events
+        }
+
+        return render(request, template, context)
+
+
+@login_required
+def event_edit_form(request, event_id):
+
+    if request.method == 'GET':
+        event = get_event(event_id)
+
+        template = 'events/form.html'
+        context = {
+            'event': event
         }
 
         return render(request, template, context)
