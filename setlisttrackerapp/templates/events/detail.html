@@ -1,14 +1,34 @@
 {% extends 'shared/base.html' %} {% block content %}
 <h1>{{ event.name }}</h1>
+<form action="{% url 'setlisttrackerapp:event_edit_form' event.id %}" method="GET">
+            {% csrf_token %}
+  <button>Edit</button>
+</form>
 
 <h3>Date: {{ event.date }}</h3>
 <h3>Location: {{ event.location }}</h3>
 <h3>Time: {{ event.start_time }} - {{ event.end_time }}</h3>
 <h3>Duration: {{ event.duration }} hours</h3>
-<h3>Setlist:</h3>
+
+
+<h2>Search for songs to add:</h2>
+<form action="{% url 'setlisttrackerapp:events' %}" method="get">
+  <input name="query" type="text" placeholder="Search song titles..." />
+</form>
+{% comment %} <h2>Search for songs to add:</h2>
+<form action="{% url 'setlisttrackerapp:events' %}" method="get">
+  <input name="query" type="text" placeholder="Search song titles..." />
+</form>
+<ul>
+  {% for song in song_list %}
+  <li>"{{ song.title}}" by {{ song.artist }} || {{song.song_length}}</li>
+  {% endfor %}
+</ul> {% endcomment %}
+
+<h2>Setlist:</h2>
 <ol>
   {% for song in event.songs %}
-  <li>{{ song.title }} || {{ song.rating }} || {{ song.song_length }}s</li>
+  <li>"{{ song.title }}" by {{ song.artist }} </br> {{ song.rating }} stars || {{ song.song_length }}s</li>
   {% endfor %}
 </ol>
 <p>Total setlist length: {{ event.setlist_length }}s</p>
