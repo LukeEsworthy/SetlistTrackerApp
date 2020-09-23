@@ -54,17 +54,31 @@ def get_event(event_id):
 @login_required
 def event_details(request, event_id):
     if request.method == 'GET':
-        event = get_event(event_id)
-
-        event.setlist_length = sum(song.song_length for song in event.songs)
-
-        template = 'events/detail.html'
-        context = {
-            'event': event
-        }
-
         if request.GET.get("query") is not None:
             print("query params", request.GET.get("query"))
+            event = get_event(event_id)
+            results = song_list_search(request)
+
+            event.setlist_length = sum(
+                song.song_length for song in event.songs)
+
+            template = 'events/detail.html'
+            context = {
+                'event': event,
+                'search_songs': results
+            }
+
+        else:
+            print("nothing here")
+            event = get_event(event_id)
+
+            event.setlist_length = sum(
+                song.song_length for song in event.songs)
+
+            template = 'events/detail.html'
+            context = {
+                'event': event
+            }
 
         return render(request, template, context)
 

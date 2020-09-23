@@ -6,7 +6,6 @@ from ..connection import Connection
 
 def song_list_search(request):
     if request.method == 'GET':
-        print("test print", request.GET.get("query", None))
         with sqlite3.connect(Connection.db_path) as conn:
             conn.row_factory = sqlite3.Row
             db_cursor = conn.cursor()
@@ -19,7 +18,7 @@ def song_list_search(request):
                 s.song_length
             from setlisttrackerapp_song s
             where s.title like ?
-            """, ('%'+request.GET.get("query", None)+'%',))
+            """, ('%'+request.GET.get("query", "")+'%',))
 
             search_all_songs = []
             dataset = db_cursor.fetchall()
@@ -33,7 +32,7 @@ def song_list_search(request):
 
                 search_all_songs.append(song)
 
-        template = 'songs/search.html'
+        template = 'songs/searchResults.html'
         context = {
             'search_all_songs': search_all_songs
         }
