@@ -31,10 +31,12 @@ def song_list_search(request):
                 song.song_length = row['song_length']
 
                 search_all_songs.append(song)
+            return search_all_songs
 
-        template = 'songs/searchResults.html'
-        context = {
-            'search_all_songs': search_all_songs
-        }
 
-        return render(request, template, context)
+def create_eventSong(request):
+    if request.method == 'POST':
+        with sqlite3.connect(Connection.db_path) as conn:
+            db_cursor = conn.cursor()
+
+        

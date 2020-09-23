@@ -55,7 +55,6 @@ def get_event(event_id):
 def event_details(request, event_id):
     if request.method == 'GET':
         if request.GET.get("query") is not None:
-            print("query params", request.GET.get("query"))
             event = get_event(event_id)
             results = song_list_search(request)
 
@@ -69,7 +68,6 @@ def event_details(request, event_id):
             }
 
         else:
-            print("nothing here")
             event = get_event(event_id)
 
             event.setlist_length = sum(

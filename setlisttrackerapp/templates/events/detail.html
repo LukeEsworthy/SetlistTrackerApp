@@ -16,7 +16,7 @@
   <input name="query" type="text" placeholder="Search song titles..." />
 </form>
 <ul>
-  {% for song in results %}
+  {% for song in search_songs %}
   <li>"{{ song.title}}" by {{ song.artist }} || {{song.song_length}}</li>
   {% endfor %}
 </ul>
