@@ -1,4 +1,5 @@
 from .home import home
+from .landingPage import landing_page
 from .auth.logout import logout_user
 from .songs.list import song_list
 from .songs.form import song_form

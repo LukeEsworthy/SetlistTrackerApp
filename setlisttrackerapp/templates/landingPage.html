@@ -1,0 +1,12 @@
+{% extends 'shared/base.html' %} {% block content %}
+<form action="{% url 'setlisttrackerapp:login' %}" method="GET">
+  {% csrf_token %}
+  <button type="submit">Login</button>
+</form>
+<h1>Welcome to the Setlist Tracker App!</h1>
+<h4>
+  Whether you're an officially licensed DJ playing sets at paid events or just
+  the official DJ on roadtrips or at parties with your friends, the Setlist
+  Tracker App can help you track your setlists and the popularity of songs.
+</h4>
+{% endblock %}

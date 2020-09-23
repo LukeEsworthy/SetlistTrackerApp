@@ -20,7 +20,7 @@
   <form action="{% url 'setlisttrackerapp:event' event.id %}" method="POST">
   {% csrf_token %}
   <input type="hidden" value={{song.id}} name="song_id"/>
-  <button type="submit" >Add</button>
+  <button type="submit">Add</button>
   </form>
   <li>"{{ song.title}}" by {{ song.artist }} || {{song.song_length}}s</li>
   {% endfor %}
