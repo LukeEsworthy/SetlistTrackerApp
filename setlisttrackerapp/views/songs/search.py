@@ -1,6 +1,6 @@
 import sqlite3
 from django.shortcuts import render
-from setlisttrackerapp.models import Song
+from setlisttrackerapp.models import Song, eventSong
 from ..connection import Connection
 
 
@@ -32,11 +32,3 @@ def song_list_search(request):
 
                 search_all_songs.append(song)
             return search_all_songs
-
-
-def create_eventSong(request):
-    if request.method == 'POST':
-        with sqlite3.connect(Connection.db_path) as conn:
-            db_cursor = conn.cursor()
-
-        

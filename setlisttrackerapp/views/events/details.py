@@ -106,22 +106,35 @@ def event_details(request, event_id):
 
             return redirect(reverse('setlisttrackerapp:events'))
 
-        if request.method == 'POST':
-            form_data = request.POST
+        if (
+            "actual_method" in form_data
+            and form_data["actual_method"] == "DELETE"
+        ):
+            with sqlite3.connect(Connection.db_path) as conn:
+                db_cursor = conn.cursor()
 
-            if (
-               "actual_method" in form_data
-                and form_data["actual_method"] == "DELETE"
-               ):
-                with sqlite3.connect(Connection.db_path) as conn:
-                    db_cursor = conn.cursor()
+                db_cursor.execute("""
+                DELETE FROM setlisttrackerapp_event
+                WHERE id = ?
+                """, (event_id,))
 
-                    db_cursor.execute("""
-                    DELETE FROM setlisttrackerapp_event
-                    WHERE id = ?
-                    """, (event_id,))
+            return redirect(reverse('setlisttrackerapp:events'))
 
-                return redirect(reverse('setlisttrackerapp:events'))
+        if ("song_id" in form_data):
+            print("song id", form_data["song_id"])
+# SQL query for creating the eventSong table
+# song_id and event_id
+            with sqlite3.connect(Connection.db_path) as conn:
+                db_cursor = conn.cursor()
+
+                db_cursor.execute("""
+                INSERT INTO setlisttrackerapp_eventSong
+                (event_id, song_id)
+                VALUES
+                (?, ?)
+                """, (event_id, form_data["song_id"]))
+
+            return redirect(reverse('setlisttrackerapp:event', kwargs={"event_id": event_id}))
 
 
 def create_event(cursor, row):
