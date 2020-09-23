@@ -33,6 +33,8 @@
   {% endfor %}
 </ol>
 <p>Total setlist length: {{ event.setlist_length }}s</p>
+<h4>Notes:</h4>
+<p>{{ event.notes }}</p>
 
 <form action="{% url 'setlisttrackerapp:event' event.id %}" method="POST">
     {% csrf_token %}
