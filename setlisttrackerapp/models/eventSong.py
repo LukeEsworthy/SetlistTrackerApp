@@ -6,7 +6,7 @@ from .song import Song
 class EventSong(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
-    rating = models.IntegerField()
+    rating = models.IntegerField(null=True, blank=True)
 
     class Meta:
         verbose_name = ("eventSong")

@@ -12,18 +12,19 @@
 
 
 <h2>Search for songs to add:</h2>
-<form action="{% url 'setlisttrackerapp:events' %}" method="get">
-  <input name="query" type="text" placeholder="Search song titles..." />
-</form>
-{% comment %} <h2>Search for songs to add:</h2>
-<form action="{% url 'setlisttrackerapp:events' %}" method="get">
+<form action="{% url 'setlisttrackerapp:event' event.id %}" method="get">
   <input name="query" type="text" placeholder="Search song titles..." />
 </form>
 <ul>
-  {% for song in song_list %}
-  <li>"{{ song.title}}" by {{ song.artist }} || {{song.song_length}}</li>
+  {% for song in search_songs %}
+  <form action="{% url 'setlisttrackerapp:event' event.id %}" method="POST">
+  {% csrf_token %}
+  <input type="hidden" value={{song.id}} name="song_id"/>
+  <button type="submit" >Add</button>
+  </form>
+  <li>"{{ song.title}}" by {{ song.artist }} || {{song.song_length}}s</li>
   {% endfor %}
-</ul> {% endcomment %}
+</ul>
 
 <h2>Setlist:</h2>
 <ol>

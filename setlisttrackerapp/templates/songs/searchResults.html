@@ -7,7 +7,7 @@
 </form>
 {% endcomment %}
 <ul>
-  {% for song in song_list %}
+  {% for song in results %}
   <li>"{{ song.title}}" by {{ song.artist }} || {{song.song_length}}</li>
   {% endfor %}
 </ul>
