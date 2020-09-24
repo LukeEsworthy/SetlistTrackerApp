@@ -39,7 +39,19 @@
 <h4>(Remaining time: {{ event.setlist_remaining_minutes }}m {{ event.setlist_remaining_seconds }}s)</h4>
 <ol>
   {% for song in event.songs %}
+  <form action="{% url 'setlisttrackerapp:event' event.id %}" method="POST">
+  {% csrf_token %}
   <li>"{{ song.title }}" by {{ song.artist }} </br> {{ song.rating }} stars || {{ song.song_length }}s</li>
+    <select name ="rating">
+      <option value = "1" selected>1</option>
+      <option value = "2">2</option>
+      <option value = "3">3</option>
+      <option value = "4">4</option>
+      <option value = "5">5</option>
+      </select>
+      <input type="hidden" value={{ song.event_song_id }} name="event_song_id"/>
+      <button type="submit">Rate</button>
+    </form>
   {% endfor %}
 </ol>
 <p>Total setlist length: {{ event.setlist_length }}s</p>
