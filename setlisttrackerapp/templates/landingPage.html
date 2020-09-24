@@ -1,11 +1,11 @@
 {% extends 'shared/base.html' %} {% block content %}
 <form action="{% url 'setlisttrackerapp:login' %}" method="GET">
   {% csrf_token %}
-  <button type="submit">Login</button>
+  <button type="submit" class="btn btn-outline-primary btn-lg">Login</button>
 </form>
 <form action="{% url 'setlisttrackerapp:register' %}" method="GET">
   {% csrf_token %}
-  <button type="submit">Register</button>
+  <button type="submit" class="btn btn-outline-primary btn-lg">Register</button>
 </form>
 <h1>Welcome to the Setlist Tracker App!</h1>
 <h4>

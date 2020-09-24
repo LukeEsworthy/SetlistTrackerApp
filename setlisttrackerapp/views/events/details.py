@@ -125,6 +125,11 @@ def event_details(request, event_id):
                 WHERE id = ?
                 """, (event_id,))
 
+                db_cursor.execute("""
+                DELETE FROM setlisttrackerapp_eventSong
+                WHERE event_id = ?
+                """, (event_id,))
+
             return redirect(reverse('setlisttrackerapp:events'))
 
         if ("song_id" in form_data):
@@ -145,7 +150,6 @@ def event_details(request, event_id):
         else:
             with sqlite3.connect(Connection.db_path) as conn:
                 db_cursor = conn.cursor()
-                print("form data", form_data)
 
                 db_cursor.execute("""
                 UPDATE setlisttrackerapp_eventSong

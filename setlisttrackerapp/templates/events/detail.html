@@ -1,12 +1,10 @@
 {% extends 'shared/base.html' %} {% block content %}
 <h1>{{ event.name }}</h1>
 {% now "Y-m-d" as todays_date %}
-{% if event.date < todays_date %}
-<p>Past events cannot be edited.</p>
-{% else %}
+{% if event.date >= todays_date %}
 <form action="{% url 'setlisttrackerapp:event_edit_form' event.id %}" method="GET">
             {% csrf_token %}
-  <button>Edit</button>
+  <button class="btn btn-outline-warning">Edit</button>
 </form>
 {% endif %}
 
@@ -16,10 +14,8 @@
 <h3>Duration: {{ event.duration }} hours</h3>
 
 
+{% if event.date >= todays_date %}
 <h2>Search for songs to add:</h2>
-{% if event.date < todays_date %}
-<p>Cannot add songs to setlist once event is over.</p>
-{% else %}
 <form action="{% url 'setlisttrackerapp:event' event.id %}" method="get">
   <input name="query" type="text" placeholder="Search song titles..." />
 </form>
@@ -50,7 +46,7 @@
       <option value = "5">5</option>
       </select>
       <input type="hidden" value={{ song.event_song_id }} name="event_song_id"/>
-      <button type="submit">Rate</button>
+      <button type="submit" class="btn btn-dark btn-sm">Rate</button>
     </form>
   {% endfor %}
 </ol>
@@ -61,6 +57,6 @@
 <form action="{% url 'setlisttrackerapp:event' event.id %}" method="POST">
     {% csrf_token %}
     <input type="hidden" name="actual_method" value="DELETE">
-    <button>Delete</button>
+    <button class="btn btn-danger">Delete</button>
 </form>
 {% endblock %}

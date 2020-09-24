@@ -1,7 +1,4 @@
-{% extends 'shared/base.html' %}
-{% block content %}
-
-{% if event.id is not None %}
+{% extends 'shared/base.html' %} {% block content %} {% if event.id is not None %}
 <form action="{% url 'setlisttrackerapp:event' event.id %}" method="post">
   {% else %}
   <form action="{% url 'setlisttrackerapp:events' %}" method="post">
@@ -72,9 +69,10 @@
     </fieldset>
     {% if event.id is not None %}
     <input type="hidden" name="actual_method" value="PUT" />
-    <input type="submit" value="Update" />
+    <button type="submit" class="btn btn-warning">Update</button>
     {% else %}
-    <input type="submit" value="Add It" />
+    <input type="hidden" value="Add It" />
+    <button type="submit" class="btn btn-warning">Add</button>
     {% endif %}
   </form>
   {% endblock %}
