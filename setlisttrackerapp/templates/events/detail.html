@@ -1,9 +1,14 @@
 {% extends 'shared/base.html' %} {% block content %}
 <h1>{{ event.name }}</h1>
+{% now "Y-m-d" as todays_date %}
+{% if event.date < todays_date %}
+<p>Past events cannot be edited.</p>
+{% else %}
 <form action="{% url 'setlisttrackerapp:event_edit_form' event.id %}" method="GET">
             {% csrf_token %}
   <button>Edit</button>
 </form>
+{% endif %}
 
 <h3>Date: {{ event.date }}</h3>
 <h3>Location: {{ event.location }}</h3>
