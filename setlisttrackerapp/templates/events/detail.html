@@ -17,9 +17,13 @@
 
 
 <h2>Search for songs to add:</h2>
+{% if event.date < todays_date %}
+<p>Cannot add songs to setlist once event is over.</p>
+{% else %}
 <form action="{% url 'setlisttrackerapp:event' event.id %}" method="get">
   <input name="query" type="text" placeholder="Search song titles..." />
 </form>
+{% endif %}
 <ul>
   {% for song in search_songs %}
   <form action="{% url 'setlisttrackerapp:event' event.id %}" method="POST">
@@ -32,6 +36,7 @@
 </ul>
 
 <h2>Setlist:</h2>
+<h4>(Remaining time: {{ event.setlist_remaining_minutes }}m {{ event.setlist_remaining_seconds }}s)</h4>
 <ol>
   {% for song in event.songs %}
   <li>"{{ song.title }}" by {{ song.artist }} </br> {{ song.rating }} stars || {{ song.song_length }}s</li>

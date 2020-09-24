@@ -2,6 +2,7 @@ import sqlite3
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+import math
 from setlisttrackerapp.models import Event, Song, EventSong
 from setlisttrackerapp.views import song_list_search
 from ..connection import Connection
@@ -56,12 +57,20 @@ def get_event(event_id):
 @login_required
 def event_details(request, event_id):
     if request.method == 'GET':
-        if request.GET.get("query") is not None:
-            event = get_event(event_id)
-            results = song_list_search(request)
+        event = get_event(event_id)
+        event.setlist_length = sum(song.song_length for song in event.songs)
+        event.duration_seconds = (event.duration * 60 * 60)
+        event.setlist_length_minutes = math.floor(event.setlist_length / 60)
+        event.setlist_length_seconds = (event.setlist_length % 60)
+        event.setlist_remaining_time_raw = (
+            event.duration_seconds - event.setlist_length)
+        event.setlist_remaining_minutes = math.floor(
+            event.setlist_remaining_time_raw / 60)
+        event.setlist_remaining_seconds = (
+            event.setlist_remaining_time_raw % 60)
 
-            event.setlist_length = sum(
-                song.song_length for song in event.songs)
+        if request.GET.get("query") is not None:
+            results = song_list_search(request)
 
             template = 'events/detail.html'
             context = {
@@ -70,11 +79,6 @@ def event_details(request, event_id):
             }
 
         else:
-            event = get_event(event_id)
-
-            event.setlist_length = sum(
-                song.song_length for song in event.songs)
-
             template = 'events/detail.html'
             context = {
                 'event': event
