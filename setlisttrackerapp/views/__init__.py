@@ -7,3 +7,4 @@ from .songs.search import song_list_search
 from .events.list import event_list
 from .events.form import event_form, event_edit_form
 from .events.details import event_details
+from .auth.register import register_user
