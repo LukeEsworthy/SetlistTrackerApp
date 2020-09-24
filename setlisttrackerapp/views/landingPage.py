@@ -1,10 +1,10 @@
 from django.shortcuts import render
 
 
-def home(request):
+def landing_page(request):
     if request.method == 'GET':
 
-        template = 'home.html'
+        template = 'landingPage.html'
         context = {}
 
         return render(request, template, context)

@@ -14,7 +14,7 @@ def get_event(event_id):
 
         db_cursor.execute("""
         SELECT
-            e.id,
+            e.id as event_id,
             e.user_id,
             e.name,
             e.date,
@@ -23,19 +23,20 @@ def get_event(event_id):
             e.location,
             e.duration,
             e.notes,
-            es.id,
+            es.id as event_song_id,
             es.rating,
-            s.id,
+            s.id as song_id,
             s.title,
             s.artist,
             s.song_length
         FROM setlisttrackerapp_event e
-            JOIN setlisttrackerapp_eventsong es ON e.id = es.event_id
-            JOIN setlisttrackerapp_song s ON es.song_id = s.id
-                WHERE e.id = ?
+            LEFT JOIN setlisttrackerapp_eventsong es ON e.id = es.event_id
+            LEFT JOIN setlisttrackerapp_song s ON es.song_id = s.id
+        WHERE e.id = ?
                 """, (event_id,))
 
         events = db_cursor.fetchall()
+        print("event and eventsong", events)
 
         event_groups = {}
 
@@ -43,12 +44,14 @@ def get_event(event_id):
 
             if event.id not in event_groups:
                 event_groups[event.id] = event
-                event_groups[event.id].songs.append(song)
+                if song is not None:
+                    event_groups[event.id].songs.append(song)
 
             else:
-                event_groups[event.id].songs.append(song)
+                if song is not None:
+                    event_groups[event.id].songs.append(song)
 
-        return event_groups[event_id]
+    return event_groups[event_id]
 
 
 @login_required
@@ -121,9 +124,8 @@ def event_details(request, event_id):
             return redirect(reverse('setlisttrackerapp:events'))
 
         if ("song_id" in form_data):
-            print("song id", form_data["song_id"])
-# SQL query for creating the eventSong table
-# song_id and event_id
+            # SQL query for creating the eventSong table
+            # song_id and event_id
             with sqlite3.connect(Connection.db_path) as conn:
                 db_cursor = conn.cursor()
 
@@ -141,7 +143,7 @@ def create_event(cursor, row):
     _row = sqlite3.Row(cursor, row)
 
     event = Event()
-    event.id = _row["id"]
+    event.id = _row["event_id"]
     event.user_id = _row["user_id"]
     event.name = _row["name"]
     event.date = _row["date"]
@@ -152,12 +154,16 @@ def create_event(cursor, row):
     event.notes = _row["notes"]
 
     event.songs = []
+    if _row["song_id"] is not None:
+        song = Song()
+        song.id = _row["song_id"]
+        song.title = _row["title"]
+        song.artist = _row["artist"]
+        song.song_length = _row["song_length"]
+        song.rating = _row["rating"]
 
-    song = Song()
-    song.id = _row["id"]
-    song.title = _row["title"]
-    song.artist = _row["artist"]
-    song.song_length = _row["song_length"]
-    song.rating = _row["rating"]
+        return (event, song,)
 
-    return (event, song,)
+    else:
+        song = None
+        return (event, song,)

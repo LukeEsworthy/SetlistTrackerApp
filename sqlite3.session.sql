@@ -163,6 +163,14 @@ VALUES
     (1, 5, 5);
 
 
+-- EVENTSONGS for EVENT 6
+
+INSERT INTO setlisttrackerapp_eventsong
+    (rating, event_id, song_id)
+VALUES
+    (5, 6, 13);
+
+
 
 -- Testing EVENT DETAIL with eventSongs
 
@@ -187,3 +195,23 @@ FROM setlisttrackerapp_event e
     JOIN setlisttrackerapp_song s ON es.song_id = s.id
 WHERE e.id = 1;
 
+SELECT
+    e.id as event_id,
+    e.user_id,
+    e.name,
+    e.date,
+    e.start_time,
+    e.end_time,
+    e.location,
+    e.duration,
+    e.notes,
+    es.id as event_song_id,
+    es.rating,
+    s.id as song_id,
+    s.title,
+    s.artist,
+    s.song_length
+FROM setlisttrackerapp_event e
+    LEFT JOIN setlisttrackerapp_eventsong es ON e.id = es.event_id
+    LEFT JOIN setlisttrackerapp_song s ON es.song_id = s.id
+WHERE e.id = 3;

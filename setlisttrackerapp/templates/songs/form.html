@@ -5,15 +5,15 @@
   {% csrf_token %}
   <fieldset>
     <label for="title">Title: </label>
-    <input id="title" type="text" name="title" />
+    <input id="title" type="text" required="True" name="title" />
   </fieldset>
   <fieldset>
     <label for="artist">Artist: </label>
-    <input id="artist" type="text" name="artist" />
+    <input id="artist" type="text" required="True" name="artist" />
   </fieldset>
   <fieldset>
     <label for="song_length">Song Length: </label>
-    <input id="song_length" type="number" name="song_length" />
+    <input id="song_length" type="number" required="True" name="song_length" />
   </fieldset>
 
   <input type="submit" value="Add It" />
