@@ -142,6 +142,19 @@ def event_details(request, event_id):
 
             return redirect(reverse('setlisttrackerapp:event', kwargs={"event_id": event_id}))
 
+        else:
+            with sqlite3.connect(Connection.db_path) as conn:
+                db_cursor = conn.cursor()
+                print("form data", form_data)
+
+                db_cursor.execute("""
+                UPDATE setlisttrackerapp_eventSong
+                SET rating = ?
+                WHERE id = ?
+                """, (form_data['rating'], form_data['event_song_id'],))
+
+            return redirect(reverse('setlisttrackerapp:event', kwargs={"event_id": event_id}))
+
 
 def create_event(cursor, row):
     _row = sqlite3.Row(cursor, row)
@@ -165,6 +178,7 @@ def create_event(cursor, row):
         song.artist = _row["artist"]
         song.song_length = _row["song_length"]
         song.rating = _row["rating"]
+        song.event_song_id = _row["event_song_id"]
 
         return (event, song,)
 
