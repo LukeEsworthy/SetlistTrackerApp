@@ -36,7 +36,6 @@ def get_event(event_id):
                 """, (event_id,))
 
         events = db_cursor.fetchall()
-        print("event and eventsong", events)
 
         event_groups = {}
 
@@ -99,15 +98,16 @@ def event_details(request, event_id):
                     start_time = ?,
                     end_time = ?,
                     location = ?,
-                    duration = ?
+                    duration = ?,
+                    notes = ?
                 WHERE id = ?
                 """,
                                   (
                                       form_data['name'], form_data['date'], form_data['start_time'], form_data[
-                                          'end_time'], form_data['location'], form_data['duration'], event_id,
+                                          'end_time'], form_data['location'], form_data['duration'], form_data['notes'], event_id,
                                   ))
 
-            return redirect(reverse('setlisttrackerapp:events'))
+            return redirect(reverse('setlisttrackerapp:event', kwargs={"event_id": event_id}))
 
         if (
             "actual_method" in form_data
