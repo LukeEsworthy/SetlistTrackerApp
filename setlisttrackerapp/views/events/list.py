@@ -13,6 +13,7 @@ def event_list(request):
         with sqlite3.connect(Connection.db_path) as conn:
             conn.row_factory = sqlite3.Row
             db_cursor = conn.cursor()
+            user = request.user
 
             db_cursor.execute("""
             select
@@ -26,7 +27,8 @@ def event_list(request):
                 e.duration,
                 e.notes
             from setlisttrackerapp_event e
-            """)
+            where e.user_id = ?
+            """, (user.id,))
 
             all_events = []
             dataset = db_cursor.fetchall()
