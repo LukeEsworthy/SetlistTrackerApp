@@ -1,4 +1,4 @@
-{% extends 'shared/base.html' %} {% block content %}
+{% extends 'shared/base.html' %} {% load bootstrap4 %} {% block content %}
 <h1>Add Song</h1>
 
 <form action="{% url 'setlisttrackerapp:songs' %}" method="post">
@@ -16,6 +16,7 @@
     <input id="song_length" type="number" required="True" name="song_length" />
   </fieldset>
 
-  <input type="submit" value="Add It" />
+  <input type="hidden" value="Add It" />
+  <button type="submit" class="btn btn-success">Add</button>
 </form>
 {% endblock %}
