@@ -36,7 +36,7 @@
           <a href="{% url 'setlisttrackerapp:logout' %}">Logout</a>
         </li>
         <li>
-          {% if user.is_authenticated %} Hello,&nbsp;{{user.first_name}}! {% else %} Welcome, Guest! {% endif %}
+          {% if user.is_authenticated %} ||||||| Hello,&nbsp;{{user.first_name}}! {% else %} Welcome, Guest! {% endif %}
         </li>
       </ol>
     </nav>
