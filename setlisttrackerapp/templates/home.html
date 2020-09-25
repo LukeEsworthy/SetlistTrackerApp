@@ -1,5 +1,17 @@
 {% extends 'shared/base.html' %} {% block content %}
-<h1>
+<h1 class="d-flex justify-content-center m-5">
   Your home for recording and tracking the popularity of your songs at events
 </h1>
+<div class="d-flex justify-content-center">
+  <form action="{% url 'setlisttrackerapp:event_form' %}" method="GET">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-warning btn-lg mx-5">
+      New Event
+    </button>
+  </form>
+  <form action="{% url 'setlisttrackerapp:song_form' %}" method="GET">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-warning btn-lg mx-5">Add Song</button>
+  </form>
+</div>
 {% endblock %}

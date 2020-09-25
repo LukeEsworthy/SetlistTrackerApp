@@ -1,5 +1,7 @@
 from django.urls import include, path
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 from .views import *
 
 app_name = "setlisttrackerapp"
@@ -19,4 +21,4 @@ urlpatterns = [
     path('logout/', logout_user, name='logout'),
     path('register/', register_user, name="register"),
 
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

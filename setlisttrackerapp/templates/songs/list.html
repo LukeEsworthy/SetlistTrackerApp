@@ -1,12 +1,14 @@
 {% extends 'shared/base.html' %} {% block content %}
-<h1>Songs</h1>
-<a href="{% url 'setlisttrackerapp:song_form' %}">Add Song to Database</a>
+<h1 class="d-flex justify-content-center m-5">Songs</h1>
+<a href="{% url 'setlisttrackerapp:song_form' %}" class="d-flex justify-content-center mb-3">Add Song to Database</a>
 <ol>
   {% for song in all_songs %}
-  <li>
-    "{{ song.title }}" by {{song.artist}} &nbsp; &nbsp; &nbsp; &nbsp;
-    {{song.song_length}}s
-  </li>
+  <div class="d-flex justify-content-center m-1">
+    <li>
+      "{{ song.title }}" by {{song.artist}} &nbsp; &nbsp; &nbsp; &nbsp;
+      {{song.song_length}}s
+    </li>
+</div>
   {% endfor %}
 </ol>
 {% endblock %}

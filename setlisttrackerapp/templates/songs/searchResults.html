@@ -1,11 +1,6 @@
 {% extends 'shared/base.html' %} {% block content %}
 <h2>Search results:</h2>
-{% comment %}
-<h2>Search for songs to add:</h2>
-<form action="{% url 'setlisttrackerapp:events' %}" method="get">
-  <input name="query" type="text" placeholder="Search song titles..." />
-</form>
-{% endcomment %}
+
 <ul>
   {% for song in results %}
   <li>"{{ song.title}}" by {{ song.artist }} || {{song.song_length}}</li>

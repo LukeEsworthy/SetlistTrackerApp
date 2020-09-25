@@ -1,66 +1,71 @@
 {% extends 'shared/base.html' %} {% block content %}
-<h1>{{ event.name }}</h1>
-{% now "Y-m-d" as todays_date %}
-{% if event.date < todays_date %}
-<p>Past events cannot be edited.</p>
-{% else %}
-<form action="{% url 'setlisttrackerapp:event_edit_form' event.id %}" method="GET">
-            {% csrf_token %}
-  <button>Edit</button>
-</form>
-{% endif %}
-
-<h3>Date: {{ event.date }}</h3>
-<h3>Location: {{ event.location }}</h3>
-<h3>Time: {{ event.start_time }} - {{ event.end_time }}</h3>
-<h3>Duration: {{ event.duration }} hours</h3>
-
-
-<h2>Search for songs to add:</h2>
-{% if event.date < todays_date %}
-<p>Cannot add songs to setlist once event is over.</p>
-{% else %}
-<form action="{% url 'setlisttrackerapp:event' event.id %}" method="get">
-  <input name="query" type="text" placeholder="Search song titles..." />
-</form>
-{% endif %}
-<ul>
-  {% for song in search_songs %}
-  <form action="{% url 'setlisttrackerapp:event' event.id %}" method="POST">
-  {% csrf_token %}
-  <input type="hidden" value={{song.id}} name="song_id"/>
-  <button type="submit">Add</button>
+<h1 class="d-flex justify-content-center">{{ event.name }}</h1>
+<div class="d-flex justify-content-center mx-3 mt-3">
+  {% now "Y-m-d" as todays_date %}
+  {% if event.date >= todays_date %}
+  <form action="{% url 'setlisttrackerapp:event_edit_form' event.id %}" method="GET">
+              {% csrf_token %}
+    <button class="btn btn-warning">Edit</button>
   </form>
-  <li>"{{ song.title}}" by {{ song.artist }} || {{song.song_length}}s</li>
-  {% endfor %}
-</ul>
+  {% endif %}
+</div>
 
-<h2>Setlist:</h2>
-<h4>(Remaining time: {{ event.setlist_remaining_minutes }}m {{ event.setlist_remaining_seconds }}s)</h4>
-<ol>
-  {% for song in event.songs %}
-  <form action="{% url 'setlisttrackerapp:event' event.id %}" method="POST">
-  {% csrf_token %}
-  <li>"{{ song.title }}" by {{ song.artist }} </br> {{ song.rating }} stars || {{ song.song_length }}s</li>
-    <select name ="rating">
-      <option value = "1" selected>1</option>
-      <option value = "2">2</option>
-      <option value = "3">3</option>
-      <option value = "4">4</option>
-      <option value = "5">5</option>
-      </select>
-      <input type="hidden" value={{ song.event_song_id }} name="event_song_id"/>
-      <button type="submit">Rate</button>
+<h3 class="d-flex justify-content-center">Date: {{ event.date }}</h3>
+<h3 class="d-flex justify-content-center">Location: {{ event.location }}</h3>
+<h3 class="d-flex justify-content-center">Time: {{ event.start_time }} - {{ event.end_time }}</h3>
+<h3 class="d-flex justify-content-center">Duration: {{ event.duration }} hours</h3>
+
+<div class="d-flex flex-row-reverse justify-content-center">
+  <div class="m-5">
+    {% if event.date >= todays_date %}
+    <h2>Search for songs to add:</h2>
+    <form action="{% url 'setlisttrackerapp:event' event.id %}" method="get">
+      <input name="query" type="text" placeholder="Search song titles..." />
     </form>
-  {% endfor %}
-</ol>
-<p>Total setlist length: {{ event.setlist_length }}s</p>
-<h4>Notes:</h4>
-<p>{{ event.notes }}</p>
+    {% endif %}
+    <ul>
+      {% for song in search_songs %}
+      <li>"{{ song.title}}" by {{ song.artist }} || {{song.song_length}}s</li>
+      <form action="{% url 'setlisttrackerapp:event' event.id %}" method="POST">
+      {% csrf_token %}
+      <input type="hidden" value={{song.id}} name="song_id"/>
+      <button type="submit">Add</button>
+      </form>
+      {% endfor %}
+    </ul>
+  </div>
 
-<form action="{% url 'setlisttrackerapp:event' event.id %}" method="POST">
-    {% csrf_token %}
-    <input type="hidden" name="actual_method" value="DELETE">
-    <button>Delete</button>
-</form>
+  <div class="m-5">
+    <h2>Setlist:</h2>
+    <h4>(Remaining time: {{ event.setlist_remaining_minutes }}m {{ event.setlist_remaining_seconds }}s)</h4>
+    <ol>
+      {% for song in event.songs %}
+      <form action="{% url 'setlisttrackerapp:event' event.id %}" method="POST">
+      {% csrf_token %}
+      <li>"{{ song.title }}" by {{ song.artist }} </br> {{ song.rating }} stars || {{ song.song_length }}s</li>
+        <select name ="rating">
+          <option value = "1" selected>1</option>
+          <option value = "2">2</option>
+          <option value = "3">3</option>
+          <option value = "4">4</option>
+          <option value = "5">5</option>
+          </select>
+          <input type="hidden" value={{ song.event_song_id }} name="event_song_id"/>
+          <button type="submit" class="btn btn-dark btn-sm">Rate</button>
+        </form>
+      {% endfor %}
+    </ol>
+  </div>
+</div>
+<p class="d-flex justify-content-center">Total setlist length: {{ event.setlist_length }}s</p>
+<h4 class="d-flex justify-content-center">Notes:</h4>
+<p class="d-flex justify-content-center">{{ event.notes }}</p>
+
+<div class="d-flex justify-content-center">
+  <form action="{% url 'setlisttrackerapp:event' event.id %}" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="actual_method" value="DELETE">
+      <button class="btn btn-danger">Delete</button>
+  </form>
+</div>
 {% endblock %}
