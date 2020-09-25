@@ -1,11 +1,13 @@
-{% extends 'shared/base.html' %} {% block content %} {% if event.id is not None %}
-<div class="d-flex justify-content-center">
-  <form action="{% url 'setlisttrackerapp:event' event.id %}" method="post">
-    {% else %}
-    <form action="{% url 'setlisttrackerapp:events' %}" method="post">
-      {% endif %} {% csrf_token %}
+{% extends 'shared/base.html' %} {% block content %}
+<h1 class="d-flex justify-content-center m-5">Add a new event:</h1>
+{% if event.id is not None %}
+<form action="{% url 'setlisttrackerapp:event' event.id %}" method="post">
+  {% else %}
+  <form action="{% url 'setlisttrackerapp:events' %}" method="post">
+    {% endif %} {% csrf_token %}
+    <div class="d-flex justify-content-center m-2">
       <fieldset>
-        <label for="name">name: </label>
+        <label for="name">Name: </label>
         <input
           id="name"
           type="text"
@@ -14,6 +16,8 @@
           value="{{ event.name }}"
         />
       </fieldset>
+    </div>
+    <div class="d-flex justify-content-center m-2">
       <fieldset>
         <label for="date">Date: </label>
         <input
@@ -24,6 +28,8 @@
           value="{{ event.date }}"
         />
       </fieldset>
+    </div>
+    <div class="d-flex justify-content-center m-2">
       <fieldset>
         <label for="start_time">Start Time: </label>
         <input
@@ -34,6 +40,8 @@
           value="{{ event.start_time }}"
         />
       </fieldset>
+    </div>
+    <div class="d-flex justify-content-center m-2">
       <fieldset>
         <label for="end_time">End Time: </label>
         <input
@@ -44,6 +52,8 @@
           value="{{ event.end_time }}"
         />
       </fieldset>
+    </div>
+    <div class="d-flex justify-content-center m-2">
       <fieldset>
         <label for="location">Location: </label>
         <input
@@ -54,6 +64,8 @@
           value="{{ event.location }}"
         />
       </fieldset>
+    </div>
+    <div class="d-flex justify-content-center m-2">
       <fieldset>
         <label for="duration">Duration: </label>
         <input
@@ -64,11 +76,14 @@
           value="{{ event.duration }}"
         />
       </fieldset>
+    </div>
+    <div class="d-flex justify-content-center m-2">
       <fieldset>
-        <label for="notes">notes: </label>
+        <label for="notes">Notes: </label>
         <input id="notes" type="text" name="notes" value="{{ event.notes }}" />
       </fieldset>
-      <div class="d-flex justify-content-center">
+    </div>
+    <div class="d-flex justify-content-center m-2">
       {% if event.id is not None %}
       <input type="hidden" name="actual_method" value="PUT" />
       <button type="submit" class="btn btn-warning">Update</button>
@@ -76,8 +91,7 @@
       <input type="hidden" value="Add It" />
       <button type="submit" class="btn btn-warning">Add</button>
       {% endif %}
-      </div>
-    </form>
-    {% endblock %}
+    </div>
   </form>
-</div>
+  {% endblock %}
+</form>

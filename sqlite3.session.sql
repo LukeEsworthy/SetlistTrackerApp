@@ -174,26 +174,6 @@ VALUES
 
 -- Testing EVENT DETAIL with eventSongs
 
-SELECT
-    e.id,
-    e.user_id,
-    e.name,
-    e.date,
-    e.start_time,
-    e.end_time,
-    e.location,
-    e.duration,
-    e.notes,
-    es.id,
-    es.rating,
-    s.id,
-    s.title,
-    s.artist,
-    s.song_length
-FROM setlisttrackerapp_event e
-    JOIN setlisttrackerapp_eventsong es ON e.id = es.event_id
-    JOIN setlisttrackerapp_song s ON es.song_id = s.id
-WHERE e.id = 1;
 
 SELECT
     e.id as event_id,
@@ -215,3 +195,4 @@ FROM setlisttrackerapp_event e
     LEFT JOIN setlisttrackerapp_eventsong es ON e.id = es.event_id
     LEFT JOIN setlisttrackerapp_song s ON es.song_id = s.id
 WHERE e.id = 3;
+
