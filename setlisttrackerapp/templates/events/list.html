@@ -1,15 +1,17 @@
 {% extends 'shared/base.html' %} {% block content %}
-<h1>Events</h1>
-<a href="{% url 'setlisttrackerapp:event_form' %}">Add Event</a>
-<ol>
-  {% for event in all_events %}
-  <li>
-    <a href="{% url 'setlisttrackerapp:event' event.id %}">
-      {{ event.name }}
-    </a>
-    from {{event.start_time}} to {{event.end_time}}, located at
-    {{event.location}}. Setlist duration {{event.duration}} hour(s).
-  </li>
-  {% endfor %}
-</ol>
+<h1 class="d-flex justify-content-center m-5">Events</h1>
+<a href="{% url 'setlisttrackerapp:event_form' %}" class="d-flex justify-content-center m-3">Add Event</a>
+<div class="d-flex justify-content-center">
+  <ol>
+    {% for event in all_events %}
+    <li class="m-1">
+      <a href="{% url 'setlisttrackerapp:event' event.id %}" class="m-1">
+        {{ event.name }}
+      </a>
+      from {{event.start_time}} to {{event.end_time}}, located at
+      {{event.location}}. Setlist duration {{event.duration}} hour(s).
+    </li>
+    {% endfor %}
+  </ol>
+</div>
 {% endblock %}

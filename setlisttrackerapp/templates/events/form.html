@@ -1,79 +1,83 @@
 {% extends 'shared/base.html' %} {% block content %} {% if event.id is not None %}
-<form action="{% url 'setlisttrackerapp:event' event.id %}" method="post">
-  {% else %}
-  <form action="{% url 'setlisttrackerapp:events' %}" method="post">
-    {% endif %} {% csrf_token %}
-    <fieldset>
-      <label for="name">name: </label>
-      <input
-        id="name"
-        type="text"
-        name="name"
-        required="True"
-        value="{{ event.name }}"
-      />
-    </fieldset>
-    <fieldset>
-      <label for="date">Date: </label>
-      <input
-        id="date"
-        type="date"
-        name="date"
-        required="True"
-        value="{{ event.date }}"
-      />
-    </fieldset>
-    <fieldset>
-      <label for="start_time">Start Time: </label>
-      <input
-        id="start_time"
-        type="time"
-        name="start_time"
-        required="True"
-        value="{{ event.start_time }}"
-      />
-    </fieldset>
-    <fieldset>
-      <label for="end_time">End Time: </label>
-      <input
-        id="end_time"
-        type="time"
-        name="end_time"
-        required="True"
-        value="{{ event.end_time }}"
-      />
-    </fieldset>
-    <fieldset>
-      <label for="location">Location: </label>
-      <input
-        id="location"
-        type="text"
-        name="location"
-        required="True"
-        value="{{ event.location }}"
-      />
-    </fieldset>
-    <fieldset>
-      <label for="duration">Duration: </label>
-      <input
-        id="duration"
-        type="number"
-        name="duration"
-        required="True"
-        value="{{ event.duration }}"
-      />
-    </fieldset>
-    <fieldset>
-      <label for="notes">notes: </label>
-      <input id="notes" type="text" name="notes" value="{{ event.notes }}" />
-    </fieldset>
-    {% if event.id is not None %}
-    <input type="hidden" name="actual_method" value="PUT" />
-    <button type="submit" class="btn btn-warning">Update</button>
+<div class="d-flex justify-content-center">
+  <form action="{% url 'setlisttrackerapp:event' event.id %}" method="post">
     {% else %}
-    <input type="hidden" value="Add It" />
-    <button type="submit" class="btn btn-warning">Add</button>
-    {% endif %}
+    <form action="{% url 'setlisttrackerapp:events' %}" method="post">
+      {% endif %} {% csrf_token %}
+      <fieldset>
+        <label for="name">name: </label>
+        <input
+          id="name"
+          type="text"
+          name="name"
+          required="True"
+          value="{{ event.name }}"
+        />
+      </fieldset>
+      <fieldset>
+        <label for="date">Date: </label>
+        <input
+          id="date"
+          type="date"
+          name="date"
+          required="True"
+          value="{{ event.date }}"
+        />
+      </fieldset>
+      <fieldset>
+        <label for="start_time">Start Time: </label>
+        <input
+          id="start_time"
+          type="time"
+          name="start_time"
+          required="True"
+          value="{{ event.start_time }}"
+        />
+      </fieldset>
+      <fieldset>
+        <label for="end_time">End Time: </label>
+        <input
+          id="end_time"
+          type="time"
+          name="end_time"
+          required="True"
+          value="{{ event.end_time }}"
+        />
+      </fieldset>
+      <fieldset>
+        <label for="location">Location: </label>
+        <input
+          id="location"
+          type="text"
+          name="location"
+          required="True"
+          value="{{ event.location }}"
+        />
+      </fieldset>
+      <fieldset>
+        <label for="duration">Duration: </label>
+        <input
+          id="duration"
+          type="number"
+          name="duration"
+          required="True"
+          value="{{ event.duration }}"
+        />
+      </fieldset>
+      <fieldset>
+        <label for="notes">notes: </label>
+        <input id="notes" type="text" name="notes" value="{{ event.notes }}" />
+      </fieldset>
+      <div class="d-flex justify-content-center">
+      {% if event.id is not None %}
+      <input type="hidden" name="actual_method" value="PUT" />
+      <button type="submit" class="btn btn-warning">Update</button>
+      {% else %}
+      <input type="hidden" value="Add It" />
+      <button type="submit" class="btn btn-warning">Add</button>
+      {% endif %}
+      </div>
+    </form>
+    {% endblock %}
   </form>
-  {% endblock %}
-</form>
+</div>

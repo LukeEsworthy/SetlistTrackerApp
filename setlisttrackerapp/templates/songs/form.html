@@ -1,22 +1,26 @@
 {% extends 'shared/base.html' %} {% load bootstrap4 %} {% block content %}
-<h1>Add Song</h1>
+<h1 class="d-flex justify-content-center m-5">Add Song</h1>
 
-<form action="{% url 'setlisttrackerapp:songs' %}" method="post">
-  {% csrf_token %}
-  <fieldset>
-    <label for="title">Title: </label>
-    <input id="title" type="text" required="True" name="title" />
-  </fieldset>
-  <fieldset>
-    <label for="artist">Artist: </label>
-    <input id="artist" type="text" required="True" name="artist" />
-  </fieldset>
-  <fieldset>
-    <label for="song_length">Song Length: </label>
-    <input id="song_length" type="number" required="True" name="song_length" />
-  </fieldset>
+<div class="d-flex justify-content-center">
+  <form action="{% url 'setlisttrackerapp:songs' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+      <label for="title">Title: </label>
+      <input id="title" type="text" required="True" name="title" />
+    </fieldset>
+    <fieldset>
+      <label for="artist">Artist: </label>
+      <input id="artist" type="text" required="True" name="artist" />
+    </fieldset>
+    <fieldset>
+      <label for="song_length">Song Length: </label>
+      <input id="song_length" type="number" required="True" name="song_length" />
+    </fieldset>
 
-  <input type="hidden" value="Add" />
-  <button type="submit" class="btn btn-warning">Add</button>
-</form>
+    <div class="d-flex justify-content-center">
+      <input type="hidden" value="Add" />
+      <button type="submit" class="btn btn-warning">Add</button>
+    </div>
+  </form>
+</div>
 {% endblock %}
